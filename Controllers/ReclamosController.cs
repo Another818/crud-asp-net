@@ -56,10 +56,12 @@ namespace WebApplicationSistemaDeReclamo.Controllers
             if (ModelState.IsValid)
             {
                 //TODO HACER EL ALTA EN LA BASE DE DATOS
+                //VUELVO AL LISTADO DE RECLAMOS
                 return RedirectToAction(nameof(Index));
             }
             else
             {
+                //HAY ALGUN ERROR DE VALIDACION... VUELVO A MOSTRAR EL FORMULARIO
                 return View();
             }
             
@@ -78,6 +80,7 @@ namespace WebApplicationSistemaDeReclamo.Controllers
         {
             try
             {
+                
                 return RedirectToAction(nameof(Index));
             }
             catch
