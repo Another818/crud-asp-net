@@ -70,21 +70,29 @@ namespace WebApplicationSistemaDeReclamo.Controllers
         // GET: ReclamosController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            ReclamoViewModel reclamoViewModel = new ReclamoViewModel();
+            reclamoViewModel.Id = id;
+            reclamoViewModel.Titulo = "Ejemplo editar";
+            reclamoViewModel.Descripcion = "Ejemplo descripcion";
+            reclamoViewModel.Estado = "Inicial";
+            reclamoViewModel.FechaAlta = DateTime.Now;
+            return View(reclamoViewModel);
         }
 
         // POST: ReclamosController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, ReclamoViewModel reclamoViewModel)
         {
-            try
+            if (ModelState.IsValid)
             {
-                
+                //TODO HACER EL ALTA EN LA BASE DE DATOS
+                //VUELVO AL LISTADO DE RECLAMOS
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            else
             {
+                //HAY ALGUN ERROR DE VALIDACION... VUELVO A MOSTRAR EL FORMULARIO
                 return View();
             }
         }
