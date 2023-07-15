@@ -1,14 +1,15 @@
-﻿using System.Data.SqlClient;
+﻿using System.Data;
+using System.Data.SqlClient;
 using WebApplicationSistemaDeReclamo.Models;
 namespace WebApplicationSistemaDeReclamo.Services
 {
     public class ReclamosService
     {
-        public void AltaReclamos(Reclamo reclamo)
+        public void AltaDeReclamo(Reclamo reclamo)
         {
-            SqlConnection sqlConnection = DbUtils.RecuperarConnection();
+            SqlConnection connection = DbUtils.RecuperarConnection();
             //TODO: FALTA EL ALTA EN LA BASE DE DATOS....
-            SqlCommand command = sqlConnection.CreateCommand();
+            SqlCommand command = connection.CreateCommand();
             command.CommandText = "INSERT INTO reclamos (titulo, descripcion, estado, fechaAlta) VALUES" 
                 + " (@titulo, @descripcion, @estado, @fechaAlta);";
             command.Parameters.AddWithValue("@titulo", reclamo.Titulo);
@@ -17,13 +18,42 @@ namespace WebApplicationSistemaDeReclamo.Services
             command.Parameters.AddWithValue("@fechaAlta", reclamo.FechaAlta);
             command.ExecuteNonQuery();
 
-            sqlConnection.Close();
+            connection.Close();
+        }
+
+        public void BorrarReclamo(long id)
+        {
+            SqlConnection connection = DbUtils.RecuperarConnection();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "DELETE FROM reclamos WHERE id = @id";
+            command.Parameters.AddWithValue("@id", id);
+            command.ExecuteNonQuery();
+            connection.Close();
         }
 
         public List<Reclamo> RecuperarListadoDeReclamo()
         {
-            //TODO: FALTA EL BUSCAR EN LA BASE DE DATOS....
-            return new List<Reclamo>();
+            List<Reclamo> reclamos = new List<Reclamo>();
+            SqlConnection connection = DbUtils.RecuperarConnection();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT id, titulo, descripcion, estado, fechaAlta FROM reclamos";
+            SqlDataReader dr = command.ExecuteReader();
+            Reclamo reclamo = null;
+
+            while (dr.Read()) 
+            {
+                reclamo = new Reclamo();
+                reclamo.Id = dr.GetInt32("id");
+                reclamo.Titulo = dr.GetString("titulo");
+                reclamo.Descripcion = dr.GetString("descripcion");
+                reclamo.Estado = dr.GetString("estado");
+                reclamo.FechaAlta = dr.GetDateTime("fechaAlta");
+                reclamos.Add(reclamo);
+            }
+
+            connection.Close();
+
+            return reclamos;
         }
     }
 }

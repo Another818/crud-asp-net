@@ -11,15 +11,19 @@ namespace WebApplicationSistemaDeReclamo.Models.ViewModels
         private string estado;
         private DateTime fechaAlta;
 
+        [DisplayName("Id auto generado")]
         public long Id { get => id; set => id = value; }
 
-        [Required]
+        [DisplayName("Titulo del producto")]
+        [Required(ErrorMessage = "El campo Titulo es obligatorio.")]
         public string Titulo { get => titulo; set => titulo = value; }
 
-        [Required]
+        [DisplayName("Descripción")]
+        [Required(ErrorMessage = "El campo Descripcion es obligatorio.")]
         [StringLength(100)]
         public string Descripcion { get => descripcion; set => descripcion = value; }
-        public string Estado { get => estado; set => estado = value; }
+        public string? Estado { get => estado; set => estado = value; }
+
         public DateTime FechaAlta { get => fechaAlta; set => fechaAlta = value; }
     }
 }
