@@ -36,14 +36,15 @@ namespace WebApplicationSistemaDeReclamo.Controllers
         public ActionResult Details(int id)
         {
             ReclamosService reclamosService = new ReclamosService();
-            //TODO tengo que recuperar un reclamo....
+            Reclamo reclamo = reclamosService.RecuperarReclamoId(id);
 
             ReclamoViewModel reclamoViewModel = new ReclamoViewModel();
-            reclamoViewModel.Id = id;
-            reclamoViewModel.Titulo = "Ejemplo titulo";
-            reclamoViewModel.Descripcion = "Ejemplo1";
-            reclamoViewModel.Estado = "abierto";
-            reclamoViewModel.FechaAlta = DateTime.Now;
+
+            reclamoViewModel.Id = reclamo.Id;
+            reclamoViewModel.Titulo = reclamo.Titulo;
+            reclamoViewModel.Descripcion = reclamo.Descripcion;
+            reclamoViewModel.Estado = reclamo.Estado;
+            reclamoViewModel.FechaAlta = reclamo.FechaAlta;
 
             return View(reclamoViewModel);
         }
@@ -83,12 +84,17 @@ namespace WebApplicationSistemaDeReclamo.Controllers
         // GET: ReclamosController/Edit/5
         public ActionResult Edit(int id)
         {
+            ReclamosService reclamosService = new ReclamosService();
+            Reclamo reclamo = reclamosService.RecuperarReclamoId(id);
+
             ReclamoViewModel reclamoViewModel = new ReclamoViewModel();
-            reclamoViewModel.Id = id;
-            reclamoViewModel.Titulo = "Ejemplo editar";
-            reclamoViewModel.Descripcion = "Ejemplo descripcion";
-            reclamoViewModel.Estado = "Inicial";
-            reclamoViewModel.FechaAlta = DateTime.Now;
+
+            reclamoViewModel.Id = reclamo.Id;
+            reclamoViewModel.Titulo = reclamo.Titulo;
+            reclamoViewModel.Descripcion = reclamo.Descripcion;
+            reclamoViewModel.Estado = reclamo.Estado;
+            reclamoViewModel.FechaAlta = reclamo.FechaAlta;
+
             return View(reclamoViewModel);
         }
 
@@ -99,8 +105,14 @@ namespace WebApplicationSistemaDeReclamo.Controllers
         {
             if (ModelState.IsValid)
             {
-                //TODO HACER EL ALTA EN LA BASE DE DATOS
-                //VUELVO AL LISTADO DE RECLAMOS
+                ReclamosService reclamosService = new ReclamosService();
+                Reclamo reclamo = new Reclamo();
+                reclamo.Titulo = reclamoViewModel.Titulo;
+                reclamo.Descripcion = reclamoViewModel.Descripcion;
+                reclamo.Estado = reclamoViewModel.Estado;
+                reclamo.FechaAlta = DateTime.Now;
+
+                reclamosService.EditDeReclamo(id, reclamo);
                 return RedirectToAction(nameof(Index));
             }
             else
