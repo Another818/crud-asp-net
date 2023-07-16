@@ -14,13 +14,13 @@ namespace WebApplicationSistemaDeReclamo.Models.ViewModels
         [DisplayName("Id auto generado")]
         public long Id { get => id; set => id = value; }
 
-        [DisplayName("Titulo del producto")]
+        [DisplayName("Titulo del reclamo")]
         [Required(ErrorMessage = "El campo Titulo es obligatorio.")]
         public string Titulo { get => titulo; set => titulo = value; }
 
         [DisplayName("Descripción")]
         [Required(ErrorMessage = "El campo Descripcion es obligatorio.")]
-        [StringLength(100)]
+        [StringLength(250)]
         public string Descripcion { get => descripcion; set => descripcion = value; }
         public string? Estado { get => estado; set => estado = value; }
 
