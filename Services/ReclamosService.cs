@@ -26,12 +26,11 @@ namespace WebApplicationSistemaDeReclamo.Services
             SqlConnection connection = DbUtils.RecuperarConnection();
             //TODO: FALTA EL ALTA EN LA BASE DE DATOS....
             SqlCommand command = connection.CreateCommand();
-            command.CommandText = "UPDATE reclamos SET titulo = @titulo, descripcion = @descripcion, estado = @estado, fechaAlta = @fechaAlta"
+            command.CommandText = "UPDATE reclamos SET titulo = @titulo, descripcion = @descripcion, estado = @estado"
                 + " WHERE id = @id;";
             command.Parameters.AddWithValue("@titulo", reclamo.Titulo);
             command.Parameters.AddWithValue("@descripcion", reclamo.Descripcion);
             command.Parameters.AddWithValue("@estado", reclamo.Estado);
-            command.Parameters.AddWithValue("@fechaAlta", reclamo.FechaAlta);
             command.Parameters.AddWithValue("@id", id);
             command.ExecuteNonQuery();
 
@@ -58,6 +57,33 @@ namespace WebApplicationSistemaDeReclamo.Services
             Reclamo reclamo = null;
 
             while (dr.Read()) 
+            {
+                reclamo = new Reclamo();
+                reclamo.Id = dr.GetInt32("id");
+                reclamo.Titulo = dr.GetString("titulo");
+                reclamo.Descripcion = dr.GetString("descripcion");
+                reclamo.Estado = dr.GetString("estado");
+                reclamo.FechaAlta = dr.GetDateTime("fechaAlta");
+                reclamos.Add(reclamo);
+            }
+
+            connection.Close();
+
+            return reclamos;
+        }
+
+        public List<Reclamo> RecuperarListadoDeReclamosBusc(string textoBuscar)
+        {
+            List<Reclamo> reclamos = new List<Reclamo>();
+            SqlConnection connection = DbUtils.RecuperarConnection();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT id, titulo, descripcion, estado, fechaAlta FROM reclamos WHERE titulo LIKE @textoBuscar OR descripcion LIKE @textoBuscar";
+            string parametroTextoBuscar = "%" + textoBuscar + "%";
+            command.Parameters.AddWithValue("@textoBuscar", parametroTextoBuscar);
+            SqlDataReader dr = command.ExecuteReader();
+            Reclamo reclamo = null;
+
+            while (dr.Read())
             {
                 reclamo = new Reclamo();
                 reclamo.Id = dr.GetInt32("id");

@@ -8,6 +8,29 @@ namespace WebApplicationSistemaDeReclamo.Controllers
 {
     public class ReclamosController : Controller
     {
+        public ActionResult Buscar(string textoBuscar)
+        {
+            ReclamosService reclamosService = new ReclamosService();
+
+            List<Reclamo> reclamos = reclamosService.RecuperarListadoDeReclamosBusc(textoBuscar);
+
+            List<ReclamoViewModel> reclamosViewModel = new List<ReclamoViewModel>();
+
+            foreach (Reclamo r in reclamos)
+            {
+                reclamosViewModel.Add(new ReclamoViewModel()
+                {
+                    Id = r.Id,
+                    Titulo = r.Titulo,
+                    Descripcion = r.Descripcion,
+                    Estado = r.Estado,
+                    FechaAlta = r.FechaAlta
+                });
+            }
+            ViewBag.textoBuscar = textoBuscar;
+            return View("Index", reclamosViewModel);
+        }
+
         // GET: ReclamosController
         public ActionResult Index()
         {
@@ -106,11 +129,11 @@ namespace WebApplicationSistemaDeReclamo.Controllers
             if (ModelState.IsValid)
             {
                 ReclamosService reclamosService = new ReclamosService();
-                Reclamo reclamo = new Reclamo();
+                Reclamo reclamo = reclamosService.RecuperarReclamoId(id);
+
                 reclamo.Titulo = reclamoViewModel.Titulo;
                 reclamo.Descripcion = reclamoViewModel.Descripcion;
                 reclamo.Estado = reclamoViewModel.Estado;
-                reclamo.FechaAlta = DateTime.Now;
 
                 reclamosService.EditDeReclamo(id, reclamo);
                 return RedirectToAction(nameof(Index));

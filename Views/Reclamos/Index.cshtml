@@ -9,6 +9,17 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form action="/Reclamos/Buscar" class="row row-cols-lg-auto align-items-center">
+  <div class="col-6">
+      <input type="text" value="@ViewBag.textoBuscar" name="textoBuscar" class="form-control" placeholder="Buscar reclamos">
+  </div>
+
+  <div class="col-6">
+    <button type="submit" class="btn btn-primary">Buscar</button>
+  </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
@@ -48,10 +59,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.FechaAlta)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { onclick="borrarReclamo(this); return false;" })
+            <td class="d-flex justify-content-between">
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class="btn btn-secondary" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class="btn btn-secondary" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class="btn btn-secondary", onclick="borrarReclamo(this); return false;" })
             </td>
         </tr>
 }
