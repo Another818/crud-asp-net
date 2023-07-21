@@ -20,7 +20,7 @@
   </div>
 </form>
 
-<table class="table">
+<table class="table mt-2 mb-2 mx-2">
     <thead>
         <tr>
             <th>
@@ -60,9 +60,20 @@
                 @Html.DisplayFor(modelItem => item.FechaAlta)
             </td>
             <td class="d-flex justify-content-between">
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class="btn btn-secondary" }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class="btn btn-secondary" }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class="btn btn-secondary", onclick="borrarReclamo(this); return false;" })
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown button
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class="dropdown-item" })
+                        </li>
+                        <li>
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class="dropdown-item" })
+                        </li>
+                        <li>
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class="dropdown-item", onclick="borrarReclamo(this); return false;" })
+                        </li>
+                    </ul>
             </td>
         </tr>
 }
