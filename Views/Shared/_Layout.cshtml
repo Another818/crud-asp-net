@@ -15,7 +15,10 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Sistema de Reclamo</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/img/bx-home.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                    Skyline Builders
+                    </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -25,14 +28,19 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" asp-area="" asp-controller="Reclamos" asp-action="Index">
+                                Reclamos
+                            </a>
+                            <ul class="dropdown-menu">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Reclamos" asp-action="Index">Lista</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Reclamos" asp-action="Create">Crear reclamo</a>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav justify-content-end">
+                        <li class="nav-item fw-bold">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Reclamos" asp-action="Index">Reclamos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Reclamos" asp-action="Create">Nuevo Reclamo</a>
                         </li>
                     </ul>
                 </div>
@@ -41,9 +49,9 @@
         @{
             if (ViewData["Title"] == "Home Page")
             {
-                <div class="contenedor head">
-                    <h1 class="titulo">¡Haz realidad tus necesidades de Gestión de Datos!</h1>
-                    <p class="copy">Desarrollamos Software de Gestión de Datos a medida.</p>
+                <div class="contenedor badge text-wrap bg-dark bg-opacity-25">
+                    <h1 class="fs-1 fw-bold">¡Haz realidad tus sueños con nosotros!</h1>
+                    <p class="copy fs-4">¡Construyendo tus sueños, piso a piso!</p>
                 </div>
             };
         }
@@ -68,7 +76,7 @@
                     <a class="nav-link px-2 text-black" asp-area="" asp-controller="Reclamos" asp-action="Index"> Reclamos </a>
                 </li>
             </ul>
-            <p>&copy; 2023 - Company, Inc</p>
+            <p>&copy; 2023 - Skyline Builders, Inc</p>
         </div>   
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
