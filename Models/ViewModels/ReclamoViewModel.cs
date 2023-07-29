@@ -11,7 +11,7 @@ namespace WebApplicationSistemaDeReclamo.Models.ViewModels
         private string estado;
         private DateTime fechaAlta;
 
-        [DisplayName("Id auto generado")]
+        [DisplayName("ID auto generado")]
         public long Id { get => id; set => id = value; }
 
         [DisplayName("Titulo del reclamo")]
