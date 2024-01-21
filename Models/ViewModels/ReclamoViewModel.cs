@@ -8,7 +8,7 @@ namespace WebApplicationSistemaDeReclamo.Models.ViewModels
         private long id;
         private string titulo;
         private string descripcion;
-        private string estado;
+        private Boolean estado;
         private DateTime fechaAlta;
 
         [DisplayName("ID auto generado")]
@@ -22,7 +22,7 @@ namespace WebApplicationSistemaDeReclamo.Models.ViewModels
         [Required(ErrorMessage = "El campo Descripcion es obligatorio.")]
         [StringLength(250)]
         public string Descripcion { get => descripcion; set => descripcion = value; }
-        public string? Estado { get => estado; set => estado = value; }
+        public Boolean Estado { get => estado; set => estado = value; }
 
         public DateTime FechaAlta { get => fechaAlta; set => fechaAlta = value; }
     }
